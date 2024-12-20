@@ -46,6 +46,9 @@ public class JobFormSchema {
     private String jobTags;
 
     @NotBlank(message = "This field is required")
+    private String category;
+
+    @NotBlank(message = "This field is required")
     private String jobTitle;
     
     @Email(message = "This field must folow email format")

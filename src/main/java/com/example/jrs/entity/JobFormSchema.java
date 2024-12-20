@@ -38,6 +38,7 @@ public class JobFormSchema {
     @NotBlank(message = "This field is required")
 
     private String jobType;
+    private String location;
 
     @NotBlank(message = "This field is required")
     private String experience;
@@ -56,4 +57,6 @@ public class JobFormSchema {
 
     @OneToMany(mappedBy = "jobForm", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SkillSchema> skills;
+    
+    private String requirement;
 }

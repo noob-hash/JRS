@@ -1,6 +1,7 @@
 package com.example.jrs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,5 +33,10 @@ public class JobController {
     @PostMapping("saveJob")
     public JobFormSchema registerJob(@RequestBody JobFormSchema JobFormSchema) {        
         return jobService.saveJob(JobFormSchema);
+    }
+
+    @GetMapping("findJob")
+    public List<JobFormSchema> findJob(@RequestParam Map<String, String> filterParams) {        
+        return jobService.findJobs(List.of(filterParams));
     }
 }

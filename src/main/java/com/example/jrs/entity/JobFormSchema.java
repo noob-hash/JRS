@@ -59,4 +59,21 @@ public class JobFormSchema {
     private List<SkillSchema> skills;
 
     private String requirement;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdatedDate;
+
+    @PrePersist
+    private void onCreate() {
+        createdDate = new Date();
+        lastUpdatedDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastUpdatedDate = new Date();
+    }
 }

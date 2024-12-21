@@ -69,8 +69,7 @@ public class DataInitilizer {
                     "example1@example.com",
                     null,
                     "RARRARRA",
-                    new Date("2024-12-02"),
-                    new Date("2024-12-02"));
+                    null, null);
 
             JobFormSchema job2 = new JobFormSchema(
                     null,
@@ -86,8 +85,7 @@ public class DataInitilizer {
                     "example2@example.com",
                     null,
                     "RARRARRA",
-                    new Date("2024-12-02"),
-                    new Date("2024-12-02"));
+                    null, null);
 
             // job1.setSkills(List.of(skill1));SkillSchema skill1 = new SkillSchema();
             SkillSchema skill3 = new SkillSchema();
@@ -98,17 +96,14 @@ public class DataInitilizer {
             skill4.setSkillName("Spring Boot");
             skill4.setJobForm(job1);
 
-
             SkillSchema skill5 = new SkillSchema();
             skill5.setSkillName("Spring Boot");
             skill5.setJobForm(job2);
-
 
             job1.setSkills(List.of(skill3, skill4));
             job2.setSkills(List.of(skill5));
 
             // System.out.println(job1.toString());
-
 
             // Save all jobs with cascading skills
             jobSchemaRepo.saveAll(List.of(job1, job2));

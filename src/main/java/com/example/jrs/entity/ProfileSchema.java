@@ -72,4 +72,21 @@ public class ProfileSchema {
 
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SkillSchema> skills;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdatedDate;
+
+    @PrePersist
+    private void onCreate() {
+        createdDate = new Date();
+        lastUpdatedDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastUpdatedDate = new Date();
+    }
 }

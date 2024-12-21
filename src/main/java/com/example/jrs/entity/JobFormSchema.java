@@ -51,12 +51,12 @@ public class JobFormSchema {
 
     @NotBlank(message = "This field is required")
     private String jobTitle;
-    
+
     @Email(message = "This field must folow email format")
     private String email;
 
     @OneToMany(mappedBy = "jobForm", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SkillSchema> skills;
-    
+
     private String requirement;
 }

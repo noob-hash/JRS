@@ -26,17 +26,17 @@ public class JobController {
     }
 
     @GetMapping("getById")
-    public JobFormSchema getJobById(@RequestParam long id) {
+    public JobFormSchema getJobById(@RequestParam Long id) {
         return jobService.getJobById(id);
     }
 
     @PostMapping("saveJob")
-    public JobFormSchema registerJob(@RequestBody JobFormSchema JobFormSchema) {        
+    public JobFormSchema registerJob(@RequestBody JobFormSchema JobFormSchema) {
         return jobService.saveJob(JobFormSchema);
     }
 
     @GetMapping("findJob")
-    public List<JobFormSchema> findJob(@RequestParam Map<String, String> filterParams) {        
+    public List<JobFormSchema> findJob(@RequestParam Map<String, String> filterParams) {
         return jobService.findJobs(List.of(filterParams));
     }
 }

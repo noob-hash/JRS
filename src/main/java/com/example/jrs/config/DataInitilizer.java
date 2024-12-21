@@ -12,6 +12,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Date;
 import java.util.List;
 
 @Configuration
@@ -66,7 +68,9 @@ public class DataInitilizer {
                     "Software Developer",
                     "example1@example.com",
                     null,
-                    "RARRARRA");
+                    "RARRARRA",
+                    new Date("2024-12-02"),
+                    new Date("2024-12-02"));
 
             JobFormSchema job2 = new JobFormSchema(
                     null,
@@ -81,7 +85,9 @@ public class DataInitilizer {
                     "Frontend Developer",
                     "example2@example.com",
                     null,
-                    "RARRARRA");
+                    "RARRARRA",
+                    new Date("2024-12-02"),
+                    new Date("2024-12-02"));
 
             // job1.setSkills(List.of(skill1));SkillSchema skill1 = new SkillSchema();
             SkillSchema skill3 = new SkillSchema();

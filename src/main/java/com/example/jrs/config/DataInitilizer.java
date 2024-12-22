@@ -1,11 +1,6 @@
 package com.example.jrs.config;
 
-import com.example.jrs.entity.JobFormSchema;
-import com.example.jrs.entity.ProfileSchema;
-import com.example.jrs.entity.SkillSchema;
-import com.example.jrs.entity.UserAuthSchema;
-import com.example.jrs.repo.JobSchemaRepo;
-import com.example.jrs.repo.ProfileSchemeRepo;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,8 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Date;
-import java.util.List;
+import com.example.jrs.entity.JobFormSchema;
+import com.example.jrs.entity.ProfileSchema;
+import com.example.jrs.entity.SkillSchema;
+import com.example.jrs.entity.UserAuthSchema;
+import com.example.jrs.repo.JobSchemaRepo;
+import com.example.jrs.repo.ProfileSchemeRepo;
 
 @Configuration
 public class DataInitilizer {

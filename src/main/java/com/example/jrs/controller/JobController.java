@@ -35,6 +35,12 @@ public class JobController {
         return jobService.saveJob(JobFormSchema);
     }
 
+    @PostMapping("/save")
+    public JobFormSchema saveJob(@RequestBody JobFormSchema JobFormSchema) {
+        return jobService.saveJobWithSkills(JobFormSchema);
+        // return ResponseEntity.ok(savedJob);
+    }
+
     @GetMapping("findJob")
     public List<JobFormSchema> findJob(@RequestParam Map<String, String> filterParams) {
         return jobService.findJobs(List.of(filterParams));

@@ -2,8 +2,6 @@ package com.example.jrs.entity;
 
 import java.time.LocalDate;
 
-import org.hibernate.validator.internal.util.stereotypes.Lazy;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

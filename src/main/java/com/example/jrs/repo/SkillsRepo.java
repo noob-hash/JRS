@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.jrs.entity.SkillSchema;
 
 @Repository
-public interface SkillsRepo extends JpaRepository<SkillSchema,Long>{
-    
+public interface SkillsRepo extends JpaRepository<SkillSchema, Long> {
+
 }

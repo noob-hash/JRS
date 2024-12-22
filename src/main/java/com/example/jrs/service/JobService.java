@@ -8,15 +8,35 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.jrs.entity.JobFormSchema;
+import com.example.jrs.entity.SkillSchema;
 import com.example.jrs.repo.JobSchemaRepo;
+import com.example.jrs.repo.SkillsRepo;
 
 @Service
 public class JobService {
     @Autowired
     private JobSchemaRepo jobRepository;
 
+    @Autowired
+    private SkillsRepo skillSchemaRepository;
+
     public JobFormSchema saveJob(JobFormSchema profile) {
         return jobRepository.save(profile);
+    }
+
+    public JobFormSchema saveJobWithSkills(JobFormSchema jobForm) {
+        // Save the JobFormSchema first
+        JobFormSchema savedJob = jobRepository.save(jobForm);
+
+        // Iterate through the skills and associate them with the saved job
+        if (jobForm.getSkills() != null && !jobForm.getSkills().isEmpty()) {
+            for (SkillSchema skill : jobForm.getSkills()) {
+                skill.setJobForm(savedJob); // Link the skill to the saved job
+                skillSchemaRepository.save(skill); // Save the skill
+            }
+        }
+
+        return savedJob; // Return the saved job with associated skills
     }
 
     public List<JobFormSchema> getJobs() {

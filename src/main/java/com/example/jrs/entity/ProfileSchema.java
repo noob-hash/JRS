@@ -3,6 +3,8 @@ package com.example.jrs.entity;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -73,6 +75,7 @@ public class ProfileSchema {
 
     @OneToOne(cascade = CascadeType.ALL)
     @Valid
+    @JsonIgnore
     private UserAuthSchema userAuthSchema;
 
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

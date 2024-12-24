@@ -34,6 +34,9 @@ public class AuthenticationConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/jrs/login", "/jrs/register").permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/employer/**").hasRole("EMPLOYER")
+                        .requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 

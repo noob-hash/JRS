@@ -1,7 +1,6 @@
 
 package com.example.jrs.repo;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,12 +35,15 @@ public interface UserAuthRepo extends JpaRepository<UserAuthSchema, Long> {
   List<UserAuthSchema> findByRoleAndIsActive(UserRole role, boolean isActive);
 
   // Custom query to find users with pending profile completion
-  // @Query("SELECT u FROM UserAuthSchema u LEFT JOIN u.profile p WHERE p IS NULL AND u.role = 'CANDIDATE'")
+  // @Query("SELECT u FROM UserAuthSchema u LEFT JOIN u.profile p WHERE p IS NULL
+  // AND u.role = 'CANDIDATE'")
   // List<UserAuthSchema> findCandidatesWithoutProfiles();
 
   // Security related queries
-  // @Query("SELECT u FROM UserAuthSchema u WHERE u.failedLoginAttempts >= :maxAttempts")
-  // List<UserAuthSchema> findLockedAccounts(@Param("maxAttempts") int maxAttempts);
+  // @Query("SELECT u FROM UserAuthSchema u WHERE u.failedLoginAttempts >=
+  // :maxAttempts")
+  // List<UserAuthSchema> findLockedAccounts(@Param("maxAttempts") int
+  // maxAttempts);
 
   // Password reset queries
   // Optional<UserAuthSchema> findByResetToken(String resetToken);

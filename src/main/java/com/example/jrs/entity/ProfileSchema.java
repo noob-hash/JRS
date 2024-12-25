@@ -11,6 +11,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
@@ -31,7 +32,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "profile_schema")
+
 @Entity
 public class ProfileSchema {
     @Id
@@ -74,11 +76,12 @@ public class ProfileSchema {
     // private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "auth_id")
     @Valid
     @JsonIgnore
     private UserAuthSchema userAuthSchema;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private List<SkillSchema> skills;
 
     @Temporal(TemporalType.TIMESTAMP)

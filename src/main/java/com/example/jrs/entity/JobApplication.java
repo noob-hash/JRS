@@ -32,19 +32,19 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "job_application")
 @Entity
 public class JobApplication {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long applicationId;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "candidate_id", nullable = false)
   @NotNull(message = "Candidate is required")
   private ProfileSchema candidate;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "job_id", nullable = false)
   private JobFormSchema job;
 

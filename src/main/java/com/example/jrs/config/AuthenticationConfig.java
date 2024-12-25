@@ -24,7 +24,7 @@ import com.example.jrs.service.ProfileService;
 @EnableMethodSecurity
 public class AuthenticationConfig {
 
-    @Autowired
+    // @Autowired
     ProfileService profileService;
 
     @Bean

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "skill_schema") // Add this
 @Entity
 public class SkillSchema {
     @Id

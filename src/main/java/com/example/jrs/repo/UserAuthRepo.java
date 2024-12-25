@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Repository;
 
 import com.example.jrs.entity.UserAuthSchema;
@@ -37,15 +36,15 @@ public interface UserAuthRepo extends JpaRepository<UserAuthSchema, Long> {
   List<UserAuthSchema> findByRoleAndIsActive(UserRole role, boolean isActive);
 
   // Custom query to find users with pending profile completion
-  @Query("SELECT u FROM UserAuthSchema u LEFT JOIN u.profile p WHERE p IS NULL AND u.role = 'CANDIDATE'")
-  List<UserAuthSchema> findCandidatesWithoutProfiles();
+  // @Query("SELECT u FROM UserAuthSchema u LEFT JOIN u.profile p WHERE p IS NULL AND u.role = 'CANDIDATE'")
+  // List<UserAuthSchema> findCandidatesWithoutProfiles();
 
   // Security related queries
-  @Query("SELECT u FROM UserAuthSchema u WHERE u.failedLoginAttempts >= :maxAttempts")
-  List<UserAuthSchema> findLockedAccounts(@Param("maxAttempts") int maxAttempts);
+  // @Query("SELECT u FROM UserAuthSchema u WHERE u.failedLoginAttempts >= :maxAttempts")
+  // List<UserAuthSchema> findLockedAccounts(@Param("maxAttempts") int maxAttempts);
 
   // Password reset queries
-  Optional<UserAuthSchema> findByResetToken(String resetToken);
+  // Optional<UserAuthSchema> findByResetToken(String resetToken);
 
-  List<UserAuthSchema> findByResetTokenExpiryBefore(Date date);
+  // List<UserAuthSchema> findByResetTokenExpiryBefore(Date date);
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.jrs.entity.JobFormSchema;
@@ -23,17 +22,5 @@ public interface ProfileSchemeRepo extends JpaRepository<ProfileSchema, Long> {
 
     @Query(value = "SELECT j.*  FROM job_form_schema j JOIN skill_schema js ON j.id = js.job_form_id JOIN skill_schema ps ON ps.profile_id = :userId WHERE js.skill_name = ps.skill_name", nativeQuery = true)
     List<JobFormSchema> getJobsMatchingSkill(Long userId);
-
-    @Query("""
-                SELECT DISTINCT j FROM JobFormSchema j
-                JOIN j.requiredSkills rs
-                JOIN ProfileSchema p
-                JOIN p.skills cs
-                WHERE p.userId = :userId
-                AND rs.skillName IN (
-                    SELECT s.skillName FROM SkillSchema s WHERE s.profile.userId = :userId
-                )
-            """)
-    List<JobFormSchema> getJobMatchingSkill(@Param("userId") Long userId);
 
 }

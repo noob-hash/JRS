@@ -13,7 +13,7 @@ import com.example.jrs.entity.JobApplication;
 
 @Repository
 public interface ApplicationRepo extends JpaRepository<JobApplication, Long> {
-  List<JobApplication> findByCandidateId(Long candidateId);
+  List<JobApplication> findByCandidateId(Long userId);
 
   List<JobApplication> findByJobEmployerId(Long employerId);
 

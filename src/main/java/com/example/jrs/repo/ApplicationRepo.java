@@ -13,16 +13,16 @@ import com.example.jrs.entity.JobApplication;
 
 @Repository
 public interface ApplicationRepo extends JpaRepository<JobApplication, Long> {
-  List<JobApplication> findByCandidateId(Long userId);
+  List<JobApplication> findByCandidate_UserId(Long userId);
 
-  List<JobApplication> findByJobEmployerId(Long employerId);
+  List<JobApplication> findByJob_EmployerId(Long employerId);
 
-  int countByJobId(Long jobId);
+  int countByJob_JobId(Long jobId);
 
-  int countByJobIdAndStatus(Long jobId, String status);
+  int countByJob_JobIdAndStatus(Long jobId, String status);
 
   List<JobApplication> findByApplicationDateBetween(Date startDate, Date endDate);
 
-  @Query("SELECT COUNT(DISTINCT a.candidateId) FROM JobApplication a WHERE a.job.employerId = :employerId")
+  @Query(value = "SELECT COUNT(DISTINCT a.candidateId) FROM job_application a WHERE a.job_id = :employerId", nativeQuery = true)
   long countUniqueCandidatesByEmployer(@Param("employerId") Long employerId);
 }

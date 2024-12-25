@@ -23,10 +23,10 @@ public class ApplicationService {
 
     public Map<String, Object> getEmployerApplicationStats(Long employerId) {
         return Map.of(
-                "totalApplications", applicationRepo.findByJobEmployerId(employerId).size(),
+                "totalApplications", applicationRepo.findByJob_EmployerId(employerId).size(),
                 "uniqueCandidates", applicationRepo.countUniqueCandidatesByEmployer(employerId),
-                "acceptedApplications", applicationRepo.countByJobIdAndStatus(employerId, "ACCEPTED"),
-                "pendingApplications", applicationRepo.countByJobIdAndStatus(employerId, "PENDING"));
+                "acceptedApplications", applicationRepo.countByJob_JobIdAndStatus(employerId, "ACCEPTED"),
+                "pendingApplications", applicationRepo.countByJob_JobIdAndStatus(employerId, "PENDING"));
     }
 
     // public List<AppliedJob> getCandidateApplicationHistory(Long candidateId) {

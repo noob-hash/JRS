@@ -3,6 +3,10 @@ package com.example.jrs.entity;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +37,6 @@ public class JobFormSchema {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long jobId;
 
-    @Column(nullable = false)
     private Long employerId;
 
     @Positive(message = "Salary must be a positive number")

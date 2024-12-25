@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.jrs.entity.EmployerSchema;
 import com.example.jrs.entity.JobFormSchema;
 import com.example.jrs.entity.ProfileSchema;
 import com.example.jrs.entity.SkillSchema;
 import com.example.jrs.entity.UserAuthSchema;
+import com.example.jrs.repo.EmployerSchemaRepo;
 import com.example.jrs.repo.JobSchemaRepo;
 import com.example.jrs.repo.ProfileSchemeRepo;
 
@@ -22,7 +24,8 @@ public class DataInitilizer {
     PasswordEncoder passwordEncoder;
 
     @Bean
-    public CommandLineRunner populateData(ProfileSchemeRepo profileSchemaRepository, JobSchemaRepo jobSchemaRepo) {
+    public CommandLineRunner populateData(ProfileSchemeRepo profileSchemaRepository, EmployerSchemaRepo employerRepo,
+            JobSchemaRepo jobSchemaRepo) {
         return args -> {
             UserAuthSchema userAuthSchema = new UserAuthSchema();
             userAuthSchema.setUsername("john_doe");
@@ -54,8 +57,20 @@ public class DataInitilizer {
 
             profileSchemaRepository.save(profile);
 
+            // Create Employer Data
+            EmployerSchema employer = new EmployerSchema();
+            employer.setCompanyName("Tech Solutions Inc.");
+            employer.setIndustry("Technology");
+            employer.setEmail("contact@techsolutions.com");
+            employer.setPhone("123-456-7890");
+            employer.setAddress("123 Tech Avenue, Silicon Valley");
+            employer.setCompanyDescription("Leading provider of tech solutions.");
+
+            employer = employerRepo.save(employer);
+
             JobFormSchema job1 = new JobFormSchema(
                     null,
+                    employer.getEmployerId(),
                     50000,
                     70000,
                     "Full-stack Developer position",
@@ -72,6 +87,7 @@ public class DataInitilizer {
 
             JobFormSchema job2 = new JobFormSchema(
                     null,
+                    employer.getEmployerId(),
                     40000,
                     60000,
                     "Frontend Developer position",

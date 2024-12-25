@@ -24,8 +24,11 @@ import com.example.jrs.service.ProfileService;
 @EnableMethodSecurity
 public class AuthenticationConfig {
 
-    // @Autowired
+    @Autowired
     ProfileService profileService;
+    
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,18 +37,10 @@ public class AuthenticationConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/jrs/login", "/jrs/register").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/employer/**").hasRole("EMPLOYER")
-                        .requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
-    }
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -57,7 +52,7 @@ public class AuthenticationConfig {
     AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http
                 .getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(profileService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(profileService).passwordEncoder(passwordEncoder);
         return authenticationManagerBuilder.build();
     }
 

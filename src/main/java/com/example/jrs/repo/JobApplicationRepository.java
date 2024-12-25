@@ -12,9 +12,9 @@ import com.example.jrs.enums.ApplicationStatus;
 
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
     
-    List<JobApplication> findByCandidateId(Long candidateId);
+    List<JobApplication> findByCandidate_UserId(Long candidateId);
     
-    List<JobApplication> findByJobId(Long jobId);
+    List<JobApplication> findByJob_JobId(Long jobId);
     
     List<JobApplication> findByApplicationDateBetween(Date start, Date end);
     

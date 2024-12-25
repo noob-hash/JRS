@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.jrs.entity.JobApplication;
 import com.example.jrs.entity.JobFormSchema;
@@ -18,6 +19,7 @@ import com.example.jrs.repo.ProfileSchemeRepo;
  *
  * @author lenovo
  */
+@Service
 public class JobApplicationService {
   @Autowired
   private ProfileSchemeRepo profileRepository;
@@ -51,11 +53,11 @@ public class JobApplicationService {
   }
 
   public List<JobApplication> getApplicationsByCandidate(Long candidateId) {
-    return applicationRepository.findByCandidateId(candidateId);
+    return applicationRepository.findByCandidate_UserId(candidateId);
   }
 
   public List<JobApplication> getApplicationsByJob(Long jobId) {
-    return applicationRepository.findByJobId(jobId);
+    return applicationRepository.findByJob_JobId(jobId);
   }
 
   public Map<String, Object> getEmployerApplicationStats(Long employerId) {

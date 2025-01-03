@@ -1,17 +1,25 @@
 package com.example.jrs.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.example.jrs.dto.JobApplicationDto;
 import com.example.jrs.entity.JobApplication;
 import com.example.jrs.service.JobApplicationService;
 
-import java.util.Date;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("jrs/applications")
@@ -21,17 +29,10 @@ public class JobApplicationController {
     private JobApplicationService jobApplicationService;
 
     @PostMapping("/apply")
-    public ResponseEntity<JobApplication> applyForJob(
-            @RequestParam Long candidateId,
-            @RequestParam Long jobId,
-            @RequestParam Integer expectedSalary,
-            @RequestParam(required = false) Boolean isAvailableForRelocation,
-            @RequestParam Integer noticePeriodInDays,
-            @RequestParam(required = false) String coverLetter) {
+    public ResponseEntity<JobApplication> applyForJob(@RequestBody @Valid JobApplicationDto jobApplication) {
 
         JobApplication application = jobApplicationService.applyForJob(
-                candidateId, jobId, expectedSalary,
-                isAvailableForRelocation, noticePeriodInDays, coverLetter);
+                jobApplication.getCandidateId(), jobApplication.getJobId());
         return ResponseEntity.ok(application);
     }
 

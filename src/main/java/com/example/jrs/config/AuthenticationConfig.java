@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -26,7 +25,7 @@ public class AuthenticationConfig {
 
     @Autowired
     ProfileService profileService;
-    
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -36,7 +35,7 @@ public class AuthenticationConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/jrs/login", "/jrs/register").permitAll()
+                        .requestMatchers("/jrs/auth/login", "/jrs/auth/register").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 

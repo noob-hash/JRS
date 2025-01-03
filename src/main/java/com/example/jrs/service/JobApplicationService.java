@@ -30,8 +30,7 @@ public class JobApplicationService {
   @Autowired
   private JobApplicationRepository applicationRepository;
 
-  public JobApplication applyForJob(Long candidateId, Long jobId, Integer expectedSalary,
-      Boolean isAvailableForRelocation, Integer noticePeriodInDays, String coverLetter) {
+  public JobApplication applyForJob(Long candidateId, Long jobId) {
 
     ProfileSchema candidate = profileRepository.findById(candidateId)
         .orElseThrow(() -> new IllegalArgumentException("Candidate not found with ID: " + candidateId));
@@ -43,11 +42,7 @@ public class JobApplicationService {
     application.setCandidate(candidate);
     application.setJob(job);
     application.setStatus(ApplicationStatus.PENDING);
-    application.setExpectedSalary(expectedSalary);
-    application.setIsAvailableForRelocation(isAvailableForRelocation);
-    application.setNoticePeriodInDays(noticePeriodInDays);
-    application.setCoverLetter(coverLetter);
-    application.setApplicationDate(new Date());
+    // application.setApplicationDate(new Date());
 
     return applicationRepository.save(application);
   }

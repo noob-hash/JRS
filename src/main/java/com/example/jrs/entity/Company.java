@@ -1,6 +1,13 @@
 package com.example.jrs.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -48,4 +55,12 @@ public class Company {
     @NotBlank(message = "Description is required")
     @Size(min = 50, max = 500, message = "Description must be between 50 and 500 characters")
     private String description;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] documentData; // Stores document securely
+
+    private boolean isDocumentVerified; // Tracks verification status
+
+    private String documentRemarks; // Verification remarks
 }

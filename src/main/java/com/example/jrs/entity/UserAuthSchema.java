@@ -39,6 +39,9 @@ public class UserAuthSchema {
     @OneToOne(mappedBy = "userAuthSchema")
     private ProfileSchema profile;
 
+    @OneToOne(mappedBy = "userAuthSchema")
+    private EmployerSchema employer;
+
     private boolean isActive = true;
 
 }

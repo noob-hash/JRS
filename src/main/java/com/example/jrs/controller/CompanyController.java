@@ -1,14 +1,22 @@
 package com.example.jrs.controller;
 
-import jakarta.validation.Valid;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jrs.entity.Company;
 import com.example.jrs.service.CompanyService;
 
-import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("jrs/companies")
@@ -17,13 +25,13 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<Company> createCompany(@Valid @RequestBody Company company) {
         Company savedCompany = companyService.createCompany(company);
         return ResponseEntity.status(201).body(savedCompany);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public List<Company> getAllCompanies() {
         return companyService.getAllCompanies();
     }

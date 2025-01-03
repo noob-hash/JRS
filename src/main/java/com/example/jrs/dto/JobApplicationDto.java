@@ -24,12 +24,4 @@ public class JobApplicationDto {
   @NotNull(message = "Candidate ID is required")
   private Long candidateId;
 
-  @NotNull(message = "Expected salary is required")
-  private Integer expectedSalary;
-
-  private String coverLetter;
-  private String additionalNotes;
-  private String resumeUrl;
-  private Boolean isAvailableForRelocation;
-  private Integer noticePeriodInDays;
 }

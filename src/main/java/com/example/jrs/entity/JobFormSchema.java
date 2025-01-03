@@ -3,9 +3,6 @@ package com.example.jrs.entity;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.validator.internal.util.stereotypes.Lazy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

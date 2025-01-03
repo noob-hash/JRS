@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.jrs.dto.LoginDto;
+import com.example.jrs.dto.LoginResponseDto;
 import com.example.jrs.dto.RegisterDto;
 import com.example.jrs.entity.EmployerSchema;
 import com.example.jrs.entity.ProfileSchema;
@@ -57,16 +58,28 @@ public class AuthService {
             throw new BadCredentialsException("Invalid password");
         }
 
+        // Create response object and set user role and data
+        LoginResponseDto loginResponse = new LoginResponseDto();
+        loginResponse.setUsername(userAuth.getUsername());
+        loginResponse.setRole(userAuth.getRole().toString()); // Convert role to string
+
         switch (userAuth.getRole()) {
             case CANDIDATE:
-                return profileRepo.findByUserAuthSchema_Username(loginDto.getUsername());
+                ProfileSchema profile = profileRepo.findByUserAuthSchema_Username(loginDto.getUsername());
+                loginResponse.setProfile(profile); // Include the profile data if needed
+                break;
             case EMPLOYER:
-                return employerRepo.findByUserAuthSchema_Username(loginDto.getUsername());
+                EmployerSchema employer = employerRepo.findByUserAuthSchema_Username(loginDto.getUsername());
+                loginResponse.setEmployer(employer); // Include the employer data if needed
+                break;
             case ADMIN:
-                return userAuth; // For admin, we might just need the auth details
+                loginResponse.setAdminData(userAuth); // Admin might only need auth data
+                break;
             default:
                 throw new IllegalStateException("Invalid user role");
         }
+
+        return loginResponse;
     }
 
     public Object register(RegisterDto registerDto) {

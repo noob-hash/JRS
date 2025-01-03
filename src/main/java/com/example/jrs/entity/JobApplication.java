@@ -17,7 +17,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -40,33 +39,17 @@ public class JobApplication {
   private Long applicationId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "candidate_id", nullable = false)
+  // @JoinColumn(name = "candidate_id", nullable = false)
   @NotNull(message = "Candidate is required")
   private ProfileSchema candidate;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "job_id", nullable = false)
+  // @JoinColumn(name = "job_id", nullable = false)
   private JobFormSchema job;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private ApplicationStatus status = ApplicationStatus.PENDING;
-
-  @Column(length = 2000)
-  private String coverLetter;
-
-  @Column(length = 1000)
-  private String additionalNotes;
-
-  private String resumeUrl;
-
-  @NotNull(message = "Expected salary is required")
-  private Integer expectedSalary;
-
-  private Boolean isAvailableForRelocation;
-
-  @NotNull(message = "Notice period is required")
-  private Integer noticePeriodInDays;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
@@ -74,9 +57,6 @@ public class JobApplication {
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdatedDate;
-
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date employerReviewDate;
 
   @Column(length = 500)
   private String employerFeedback;

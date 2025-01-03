@@ -73,17 +73,16 @@ public class ProfileSchema {
     @Email(message = "This field must folow email format")
     private String email;
 
-    // @NotBlank(message = "This field is required")
+    @NotBlank(message = "This field is required")
     private String phone;
 
-    // @NotBlank(message = "This field is required")
+    @NotBlank(message = "This field is required")
     private String country;
 
-    // @NotBlank(message = "This field is required")
+    @NotBlank(message = "This field is required")
     private String city;
 
-    // @NotBlank(message = "This field is required")
-    private Boolean disabilitySupport;
+    private boolean disabilitySupport;
 
     @OneToOne(cascade = CascadeType.ALL)
     @Valid

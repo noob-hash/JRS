@@ -132,7 +132,7 @@ public class AuthService {
 
         // Validate profile data
         validateProfileData(profile);
-
+        userAuth.setProfile(profile);
         profile.setUserAuthSchema(userAuth);
         return profileRepo.save(profile);
     }

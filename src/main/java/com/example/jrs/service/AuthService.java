@@ -16,6 +16,8 @@ import com.example.jrs.repo.EmployerSchemaRepo;
 import com.example.jrs.repo.ProfileSchemeRepo;
 import com.example.jrs.repo.UserAuthRepo;
 
+import jakarta.validation.ValidationException;
+
 @Service
 public class AuthService {
     @Autowired
@@ -65,15 +67,21 @@ public class AuthService {
 
         switch (userAuth.getRole()) {
             case CANDIDATE:
-                ProfileSchema profile = profileRepo.findByUserAuthSchema_Username(loginDto.getUsername());
-                loginResponse.setProfile(profile); // Include the profile data if needed
+                ProfileSchema profile = userAuth.getProfile();
+                if (profile == null) {
+                    throw new IllegalStateException("Profile not found for candidate user");
+                }
+                loginResponse.setProfile(profile);
                 break;
             case EMPLOYER:
-                EmployerSchema employer = employerRepo.findByUserAuthSchema_Username(loginDto.getUsername());
-                loginResponse.setEmployer(employer); // Include the employer data if needed
+                EmployerSchema employer = userAuth.getEmployer();
+                if (employer == null) {
+                    throw new IllegalStateException("Employer data not found for employer user");
+                }
+                loginResponse.setEmployer(employer);
                 break;
             case ADMIN:
-                loginResponse.setAdminData(userAuth); // Admin might only need auth data
+                loginResponse.setAdminData(userAuth);
                 break;
             default:
                 throw new IllegalStateException("Invalid user role");
@@ -83,30 +91,60 @@ public class AuthService {
     }
 
     public Object register(RegisterDto registerDto) {
+
+        // Check if username already exists
         if (userAuthRepo.existsByUsername(registerDto.getUsername())) {
-            throw new IllegalArgumentException("Username is already taken");
+            throw new ValidationException("Username is already taken");
         }
 
+        // Create and save UserAuthSchema first
+        UserAuthSchema userAuth = createUserAuth(registerDto);
+        userAuth = userAuthRepo.save(userAuth);
+
+        // Handle role-specific registration
+        switch (registerDto.getRole()) {
+            case CANDIDATE:
+                return registerCandidate(registerDto, userAuth);
+            case EMPLOYER:
+                return "Not registed yes";
+            // return registerEmployer(registerDto, userAuth);
+            case ADMIN:
+                return userAuth;
+            default:
+                throw new IllegalStateException("Invalid user role");
+        }
+    }
+
+    private UserAuthSchema createUserAuth(RegisterDto registerDto) {
         UserAuthSchema userAuth = new UserAuthSchema();
         userAuth.setUsername(registerDto.getUsername());
         userAuth.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         userAuth.setRole(registerDto.getRole());
+        userAuth.setActive(true);
+        return userAuth;
+    }
 
-        switch (registerDto.getRole()) {
-            case CANDIDATE:
-                ProfileSchema profile = registerDto.getProfileData();
-                profile.setUserAuthSchema(userAuth);
-                return profileRepo.save(profile);
-            case EMPLOYER:
-                EmployerSchema employer = registerDto.getEmployerData();
-                employer.setUserAuthSchema(userAuth);
-                return employerRepo.save(employer);
-            case ADMIN:
-                // Admin creation might need special handling
-                return userAuthRepo.save(userAuth);
-            default:
-                throw new IllegalStateException("Invalid user role");
+    private ProfileSchema registerCandidate(RegisterDto registerDto, UserAuthSchema userAuth) {
+        ProfileSchema profile = registerDto.getProfileData();
+        if (profile == null) {
+            throw new ValidationException("Profile data is required for candidate registration");
         }
+
+        // Validate profile data
+        validateProfileData(profile);
+
+        profile.setUserAuthSchema(userAuth);
+        return profileRepo.save(profile);
+    }
+
+    private void validateProfileData(ProfileSchema profile) {
+        if (profile.getName() == null || profile.getName().trim().isEmpty()) {
+            throw new ValidationException("Name is required");
+        }
+        if (profile.getEmail() == null || profile.getEmail().trim().isEmpty()) {
+            throw new ValidationException("Email is required");
+        }
+        // Add more profile validations as needed
     }
 
 }

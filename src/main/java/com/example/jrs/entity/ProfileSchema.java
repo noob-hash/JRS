@@ -41,9 +41,9 @@ public class ProfileSchema {
 
     @NotBlank(message = "Name must be at least 2 characters")
     private String name;
-    @NotBlank(message = "Name must be at least 2 characters")
+    // @NotBlank(message = "Name must be at least 2 characters")
     private String languages;
-    @NotBlank(message = "Name must be at least 2 characters")
+    // @NotBlank(message = "Name must be at least 2 characters")
     private String title;
 
     @Min(message = "Must be at least 18 years old", value = 18)
@@ -73,13 +73,13 @@ public class ProfileSchema {
     @Email(message = "This field must folow email format")
     private String email;
 
-    @NotBlank(message = "This field is required")
+    // @NotBlank(message = "This field is required")
     private String phone;
 
-    @NotBlank(message = "This field is required")
+    // @NotBlank(message = "This field is required")
     private String country;
 
-    @NotBlank(message = "This field is required")
+    // @NotBlank(message = "This field is required")
     private String city;
 
     // @NotBlank(message = "This field is required")

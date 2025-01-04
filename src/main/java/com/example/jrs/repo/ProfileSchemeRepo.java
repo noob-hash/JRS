@@ -21,10 +21,12 @@ public interface ProfileSchemeRepo extends JpaRepository<ProfileSchema, Long> {
     @Query(value = "Select * From jrs.profile_schema p join jrs.user_auth_schema u on p.user_auth_schema_auth_id = u.auth_id where u.username =:username", nativeQuery = true)
     ProfileSchema findByUserAuthSchema_Username(String username);
 
-    @Query(value = "SELECT j.*  FROM job_form_schema j JOIN skill_schema js ON j.id = js.job_form_id JOIN skill_schema ps ON ps.profile_id = :userId WHERE js.skill_name = ps.skill_name", nativeQuery = true)
+    // @Query(value = "SELECT j.* FROM job_form_schema j JOIN skill_schema js ON
+    // j.id = js.job_form_id JOIN skill_schema ps ON ps.profile_id = :userId WHERE
+    // js.skill_name = ps.skill_name", nativeQuery = true)
+    @Query("SELECT j FROM JobFormSchema j JOIN j.skills js JOIN SkillSchema ps ON ps.profile.id = :userId WHERE js.skillName = ps.skillName")
     List<JobFormSchema> getJobsMatchingSkill(Long userId);
 
     Optional<ProfileSchema> findByUserAuthSchema_AuthId(Long authId);
-
 
 }

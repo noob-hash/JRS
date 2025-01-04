@@ -82,7 +82,7 @@ public class ProfileSchema {
     @NotBlank(message = "This field is required")
     private String city;
 
-    private boolean disabilitySupport;
+    private Boolean disabilitySupport;
 
     @OneToOne(cascade = CascadeType.ALL)
     @Valid

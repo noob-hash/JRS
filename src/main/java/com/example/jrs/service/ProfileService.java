@@ -209,6 +209,6 @@ public class ProfileService implements UserDetailsService {
         existing.setPhone(updated.getPhone());
         existing.setCountry(updated.getCountry());
         existing.setCity(updated.getCity());
-        existing.setDisabilitySupport(updated.isDisabilitySupport());
+        existing.setDisabilitySupport(updated.getDisabilitySupport());
     }
 }

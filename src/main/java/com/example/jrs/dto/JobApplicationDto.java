@@ -5,6 +5,8 @@
 
 package com.example.jrs.dto;
 
+import java.util.Date;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,5 +25,13 @@ public class JobApplicationDto {
 
   @NotNull(message = "Candidate ID is required")
   private Long candidateId;
+
+  private Long applicationId;
+  private String candidateName;
+  private String jobTitle;
+  private String status;
+  private Date applicationDate;
+  private Date lastUpdatedDate;
+  private String employerFeedback;
 
 }

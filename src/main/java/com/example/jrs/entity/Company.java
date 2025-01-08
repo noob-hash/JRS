@@ -1,13 +1,15 @@
 package com.example.jrs.entity;
 
-import jakarta.persistence.Basic;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -56,9 +58,14 @@ public class Company {
     @Size(min = 50, max = 500, message = "Description must be between 50 and 500 characters")
     private String description;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] documentData; // Stores document securely
+    @OneToOne(cascade = CascadeType.ALL)
+    @Valid
+    @JsonIgnore
+    private UserAuthSchema userAuthSchema;
+
+    private String fileUrl; // Stores document securely
+
+    private String companyLogo; // Stores document securely
 
     private boolean isDocumentVerified; // Tracks verification status
 

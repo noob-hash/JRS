@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.jrs.dto.JobApplicationDto;
 import com.example.jrs.entity.JobApplication;
 import com.example.jrs.entity.JobFormSchema;
 import com.example.jrs.entity.ProfileSchema;
@@ -47,12 +48,21 @@ public class JobApplicationService {
     return applicationRepository.save(application);
   }
 
+  /**
+   * Fetch employer statistics.
+   */
   public List<JobApplication> getApplicationsByCandidate(Long candidateId) {
-    return applicationRepository.findByCandidate_UserId(candidateId);
+    // return applicationRepository.findByCandidate_UserId(candidateId);
+    List<JobApplication> applications = applicationRepository.findByCandidate_UserId(candidateId);
+
+    return applications.stream()
+        .map(this::convertToDto)
+        .toList();
   }
 
   public List<JobApplication> getApplicationsByJob(Long jobId) {
     return applicationRepository.findByJob_JobId(jobId);
+
   }
 
   public Map<String, Object> getEmployerApplicationStats(Long employerId) {
@@ -67,5 +77,20 @@ public class JobApplicationService {
 
   public List<JobApplication> getApplicationsForPeriod(Date start, Date end) {
     return applicationRepository.findByApplicationDateBetween(start, end);
+  }
+
+  /**
+   * Convert JobApplication to JobApplicationDto.
+   */
+  private JobApplicationDto convertToDto(JobApplication application) {
+    return JobApplicationDto.builder()
+        .applicationId(application.getApplicationId())
+        .candidateName(application.getCandidate().getFullName())
+        .jobTitle(application.getJob().getJobTitle())
+        .status(application.getStatus().name())
+        .applicationDate(application.getApplicationDate())
+        .lastUpdatedDate(application.getLastUpdatedDate())
+        .employerFeedback(application.getEmployerFeedback())
+        .build();
   }
 }

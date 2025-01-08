@@ -48,6 +48,14 @@ public class CompanyController {
         return ResponseEntity.ok(updatedCompany);
     }
 
+    @PutMapping("/{id}/verify-document")
+    public ResponseEntity<Company> verifyDocument(
+            @PathVariable Long id,
+            @RequestBody Boolean documentVerified) {
+        Company updatedCompany = companyService.toggleDocumentVerification(id, documentVerified);
+        return ResponseEntity.ok(updatedCompany);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
         companyService.deleteCompany(id);

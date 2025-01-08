@@ -11,17 +11,18 @@ import com.example.jrs.entity.JobApplication;
 import com.example.jrs.enums.ApplicationStatus;
 
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
-    
+
     List<JobApplication> findByCandidate_UserId(Long candidateId);
-    
+
     List<JobApplication> findByJob_JobId(Long jobId);
-    
+
     List<JobApplication> findByApplicationDateBetween(Date start, Date end);
-    
+
     Long countByJob_EmployerId(Long employerId);
-    
+
     Long countByJob_EmployerIdAndStatus(Long employerId, ApplicationStatus status);
-    
+
     @Query("SELECT COUNT(DISTINCT a.candidate.userId) FROM JobApplication a WHERE a.job.employerId = :employerId")
     Long countUniqueCandidatesByEmployer(@Param("employerId") Long employerId);
+
 }

@@ -9,6 +9,7 @@ import java.util.Date;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
  * @author lenovo
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class JobApplicationDto {

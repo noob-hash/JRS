@@ -35,7 +35,8 @@ public class AuthenticationConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/jrs/auth/login", "/jrs/auth/register").permitAll()
+                        .requestMatchers("/jrs/auth/login", "/jrs/auth/register", "/jrs/jobs/**", "/jrs/companies/**")
+                        .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 
